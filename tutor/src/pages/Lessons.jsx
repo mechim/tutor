@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, DatePicker, List } from 'antd';
+import { Form, Input, Button, DatePicker, TimePicker, List } from 'antd';
+import Navbar from '../components/Navbar';
 // import 'antd/dist/antd.css';
 
 function Lessons() {
@@ -16,11 +17,15 @@ function Lessons() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Tutor Lesson Scheduler</h1>
-      <LessonForm addLesson={addLesson} />
-      <LessonList lessons={lessons} deleteLesson={deleteLesson} />
-    </div>
+    <>
+      <Navbar/>
+      <div style={{ padding: '20px' }}>
+        <h1>Tutor Lesson Scheduler</h1>
+        <LessonForm addLesson={addLesson} />
+        <LessonList lessons={lessons} deleteLesson={deleteLesson} />
+      </div>
+    </>
+    
   );
 }
 
@@ -37,9 +42,14 @@ function LessonForm({ addLesson }) {
       <Form.Item name="subject" rules={[{ required: true, message: 'Please input the subject!' }]}>
         <Input placeholder="Subject" />
       </Form.Item>
-      <Form.Item name="date" rules={[{ required: true, message: 'Please select the date!' }]}>
+      <Form.Item name="date" rules={[{ required: true, message: 'Please input the date!' }]}>
         <DatePicker placeholder="Select Date" />
       </Form.Item>
+      <Form.Item name="time" rules={[{required: true, message: "Please input the time!!"}]}>
+        <TimePicker placeholder="Select Time" format="HH:mm" />
+
+      </Form.Item>
+
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Add Lesson
@@ -57,7 +67,7 @@ function LessonList({ lessons, deleteLesson }) {
         <List.Item>
           <List.Item.Meta
             title={lesson.subject}
-            description={lesson.date.toString()}
+            description={lesson.date.toString() + " " + lesson.time.toString()}
           />
           <Button onClick={() => deleteLesson(index)}>Delete</Button>
         </List.Item>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Row, Col, Input, Upload, Button } from 'antd';
 import { EditOutlined, CheckOutlined } from '@ant-design/icons';
+import Navbar from '../components/Navbar';
 
 const { Meta } = Card;
 
@@ -39,6 +40,8 @@ const Students = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div style={{ padding: '20px' }}>
       <Button
         type="primary"
@@ -90,6 +93,8 @@ const Students = () => {
         ))}
       </Row>
     </div>
+    </>
+    
   );
 };
 
