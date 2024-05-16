@@ -43,12 +43,9 @@ function LessonForm({ addLesson }) {
         <Input placeholder="Subject" />
       </Form.Item>
       <Form.Item name="date" rules={[{ required: true, message: 'Please input the date!' }]}>
-        <DatePicker placeholder="Select Date" />
+        <DatePicker showTime placeholder="Select Date" />
       </Form.Item>
-      <Form.Item name="time" rules={[{required: true, message: "Please input the time!!"}]}>
-        <TimePicker placeholder="Select Time" format="HH:mm" />
 
-      </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit">
@@ -67,7 +64,7 @@ function LessonList({ lessons, deleteLesson }) {
         <List.Item>
           <List.Item.Meta
             title={lesson.subject}
-            description={lesson.date.toString() + " " + lesson.time.toString()}
+            description={lesson.date.toString()}
           />
           <Button onClick={() => deleteLesson(index)}>Delete</Button>
         </List.Item>
