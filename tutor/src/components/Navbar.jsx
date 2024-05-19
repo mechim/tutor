@@ -12,10 +12,10 @@ const Navbar = () => {
   return (
     <Menu mode="horizontal" theme={theme}>
       <Menu.Item key="title"  >Tutor</Menu.Item>
-        <Link to={'/students'}>
+        <Link to={'/tutor/students'}>
             <Menu.Item key="about">Students</Menu.Item>
         </Link>
-        <Link to={'/lessons'}>
+        <Link to={'/tutor/'}>
             <Menu.Item key="home">Lessons</Menu.Item>
         </Link>
         <Menu.Item key="theme-switch" className="menu-switch">

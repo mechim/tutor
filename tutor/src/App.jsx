@@ -50,8 +50,8 @@ function App() {
       <Context.Provider value={{students, setStudents,lessons, setLessons, theme, setTheme}}>
         <Router>
           <Routes>
-            <Route path='/students' element={<Students/>}/>
-            <Route path='/' element={<Lessons/>}/>
+            <Route path='/tutor/students' element={<Students/>}/>
+            <Route path='/tutor/' element={<Lessons/>}/>
           </Routes>
         </Router>
       </Context.Provider>
