@@ -51,7 +51,7 @@ function App() {
         <Router>
           <Routes>
             <Route path='/students' element={<Students/>}/>
-            <Route path='/lessons' element={<Lessons/>}/>
+            <Route path='/' element={<Lessons/>}/>
           </Routes>
         </Router>
       </Context.Provider>
