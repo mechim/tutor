@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, DatePicker, TimePicker, List } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+import { Form, Input, Button, DatePicker, TimePicker, List, Dropdown, Space, Select, Typography  } from 'antd';
 import Navbar from '../components/Navbar';
-// import 'antd/dist/antd.css';
+import { Context } from '../App';
+import '../App.css'
+
+const {Title, Text} = Typography;
 
 function Lessons() {
-  const [lessons, setLessons] = useState([]);
+  const {lessons, setLessons, students, theme} = useContext(Context);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    let newTotal = 0;
+    lessons.forEach(lesson => {
+      const student = students.find(student => student.name === lesson.student);
+      if (student) {
+        newTotal += student.price;
+      }
+    });
+    setTotal(newTotal);
+  }, [lessons])
 
   const addLesson = (lesson) => {
     setLessons([...lessons, lesson]);
@@ -20,8 +35,11 @@ function Lessons() {
     <>
       <Navbar/>
       <div style={{ padding: '20px' }}>
-        <h1>Tutor Lesson Scheduler</h1>
-        <LessonForm addLesson={addLesson} />
+        <Title 
+          style={theme === 'dark' ? {color: '#fff'} : {}}
+        >Tutor Lesson Scheduler</Title>
+        <Title style={theme === 'dark' ? {color: '#fff'} : {}} level={4}>Total money: ${total}</Title>
+        <LessonForm addLesson={addLesson} students={students} theme={theme} />
         <LessonList lessons={lessons} deleteLesson={deleteLesson} />
       </div>
     </>
@@ -29,16 +47,37 @@ function Lessons() {
   );
 }
 
-function LessonForm({ addLesson }) {
+function LessonForm({ addLesson, students, theme }) {
   const [form] = Form.useForm();
+  const studentOptions = students.map(student => ({
+    label: student.name,
+    value: student.name,
+  }));
 
+  function findPrice(studentName){
+    const student = students.find(element => element.name === studentName);
+    return student ? student.price : 0;
+  }
   const handleSubmit = (values) => {
+    values.price = findPrice(values.student);
     addLesson(values);
     form.resetFields();
   };
 
+  
   return (
     <Form form={form} onFinish={handleSubmit} layout="inline">
+      <Form.Item name="student" rules={[{required: true, message: 'Please select a student!'}]}
+        
+      >
+      <Select 
+      // style={theme === 'dark' ? {backgroundColor: '#1f1f1f', color: '#fff'}: {}}
+        placeholder="Student" 
+        options={studentOptions} 
+        // style={{width:200}}
+      />
+
+      </Form.Item>
       <Form.Item name="subject" rules={[{ required: true, message: 'Please input the subject!' }]}>
         <Input placeholder="Subject" />
       </Form.Item>
@@ -57,16 +96,19 @@ function LessonForm({ addLesson }) {
 }
 
 function LessonList({ lessons, deleteLesson }) {
+  
+
   return (
     <List
       dataSource={lessons}
       renderItem={(lesson, index) => (
         <List.Item>
           <List.Item.Meta
-            title={lesson.subject}
+            title={lesson.student+ " $" + lesson.price}
             description={lesson.date.toString()}
+            style={{color:'#fff'}}
           />
-          <Button onClick={() => deleteLesson(index)}>Delete</Button>
+          <Button danger onClick={() => deleteLesson(index)}>Delete</Button>
         </List.Item>
       )}
     />

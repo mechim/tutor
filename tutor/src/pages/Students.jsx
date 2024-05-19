@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Row, Col, Input, Upload, Button, Form, InputNumber, List } from 'antd';
 import { EditOutlined, CheckOutlined } from '@ant-design/icons';
 import Navbar from '../components/Navbar';
+import { Context } from '../App';
 
 const { Meta } = Card;
 
 const Students = () => {
-  const [students, setStudents] = useState([]);
+  const {students, setStudents} = useContext(Context);
   const addStudent = (student) => {
     setStudents([...students, student]);
   }
@@ -15,17 +16,13 @@ const Students = () => {
     updatedStudents.splice(index, 1);
     setStudents(updatedStudents);
   };
-
-  const [editMode, setEditMode] = useState(false);
   
-
- 
-
   return (
     <>
     <Navbar/>
     <div style={{ padding: '20px' }}>
       <StudentForm addStudent={addStudent}/>
+      <div style={{height: '20px'}}></div>
       <StudentList students={students} deleteStudent={deleteStudent}/>
     </div>
     </>
@@ -67,7 +64,7 @@ function StudentList({students, deleteStudent}){
       dataSource={students}
       renderItem={(item) => (
         <List.Item>
-          <Card title={item.name}>Price per lesson: {item.price}</Card>
+          <Card title={item.name} extra={<Button  danger onClick={(item) => deleteStudent(item)}>Delete</Button>}>Price per lesson: {item.price}</Card>
         </List.Item>
       )}
     />

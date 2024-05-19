@@ -1,0 +1,55 @@
+:root {
+    --background-color: #fff;
+    --text-color: #000;
+  }
+  
+  [data-theme='dark'] {
+    --background-color: #1f1f1f;
+    --text-color: #fff;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+.tt{
+    color: var(--text-color);
+}
+
+.ant-select-selector{
+    background-color: var(--background-color);
+}
+
+:where(.css-dev-only-do-not-override-1r287do).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title {
+    color: var(--text-color);
+}
+
+:where(.css-dev-only-do-not-override-1r287do).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description{
+    color: var(--text-color);
+}
+:where(.css-dev-only-do-not-override-1r287do).ant-card .ant-card-head{
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+:where(.css-dev-only-do-not-override-1r287do).ant-card{
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+/* :where(.css-dev-only-do-not-override-1r287do).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector{
+    background-color: var(--background-color);
+} */
+
+/* :where(.css-dev-only-do-not-override-1r287do).ant-input-outlined{
+    background-color: var(--background-color);
+}
+
+:where(.css-dev-only-do-not-override-1r287do).ant-picker-outlined{
+    background-color: var(--background-color);
+}
+
+:where(.css-dev-only-do-not-override-1r287do).ant-form-item{
+    color: var(--text-color);
+} */
